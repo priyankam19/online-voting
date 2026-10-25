@@ -1,0 +1,34 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-voting
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: online-voting
+  template:
+    metadata:
+      labels:
+        app: online-voting
+    spec:
+      containers:
+        - name: online-voting
+          image: online-voting-app:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: online-voting-service
+spec:
+  type: NodePort
+  selector:
+    app: online-voting
+  ports:
+    - port: 80
+      targetPort: 80
+
