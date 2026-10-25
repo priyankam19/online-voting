@@ -1,0 +1,28 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+</head>
+<body>
+    <h1>Online Voting System</h1>
+    <p>Welcome to the Online Voting System.</p>
+
+    <h2>Choose your candidate</h2>
+    <button onclick="vote('Candidate A')">Candidate A</button>
+    <button onclick="vote('Candidate B')">Candidate B</button>
+
+    <p id="result">Select a candidate to cast a demo vote.</p>
+
+    <script>
+        function vote(candidate) {
+            document.getElementById("result").textContent =
+                "Demo vote selected for " + candidate;
+        }
+    </script>
+</body>
+</html>
+
