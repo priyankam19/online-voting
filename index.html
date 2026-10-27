@@ -1,22 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Online Voting System | DevOps Project</title>
+<title>VoteSecure | Online Voting System</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: #f3f6fb;
-    color: #17233d;
+    font-family: Arial, sans-serif;
+    background: #f3f6fc;
+    color: #172747;
+    line-height: 1.6;
 }
 
 header {
@@ -30,73 +26,52 @@ header {
     gap: 15px;
 }
 
-.logo {
-    font-size: 23px;
-    font-weight: 750;
-}
+.logo { font-size: 25px; font-weight: bold; }
+.logo span { color: #72b7ff; }
+.subtitle { color: #cbd5e8; font-size: 12px; }
 
-.logo span {
-    color: #69b7ff;
-}
-
-header p {
-    color: #c9d5eb;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-nav {
-    display: flex;
-    gap: 10px;
-}
+nav { display: flex; gap: 10px; }
 
 nav button {
+    padding: 10px 17px;
+    border: 1px solid #536487;
+    border-radius: 8px;
     background: transparent;
     color: white;
-    border: 1px solid #506080;
-    padding: 10px 17px;
-    border-radius: 8px;
     cursor: pointer;
 }
 
-nav button:hover,
-nav button.active {
+nav button.active, nav button:hover {
     background: #3478f6;
     border-color: #3478f6;
 }
 
 .hero {
-    background: linear-gradient(120deg, #101d3a, #214c88);
+    padding: 48px 7% 65px;
     color: white;
-    padding: 48px 7% 55px;
+    background: linear-gradient(120deg, #101d3a, #24569a);
 }
 
-.hero .tag {
+.badge {
     display: inline-block;
-    background: #294c78;
-    color: #dcecff;
-    padding: 7px 12px;
+    background: #304d77;
     border-radius: 20px;
+    padding: 5px 12px;
     font-size: 12px;
-    margin-bottom: 18px;
-}
-
-.hero h1 {
-    font-size: clamp(30px, 5vw, 45px);
-    line-height: 1.2;
-    max-width: 700px;
     margin-bottom: 15px;
 }
 
-.hero p {
-    color: #d6e3f7;
-    max-width: 620px;
-    line-height: 1.7;
+.hero h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.2;
+    margin-bottom: 14px;
 }
+
+.hero p { max-width: 650px; color: #d9e5f7; }
 
 main {
     max-width: 1100px;
-    margin: -22px auto 0;
+    margin: -25px auto 0;
     padding: 0 22px 45px;
     position: relative;
 }
@@ -104,311 +79,197 @@ main {
 .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 28px;
+    gap: 17px;
+    margin-bottom: 30px;
 }
 
-.stat-card, .card {
+.stat, .card, .candidate {
     background: white;
-    border: 1px solid #e4eaf3;
-    border-radius: 15px;
-    padding: 23px;
-    box-shadow: 0 7px 24px rgba(21, 42, 77, 0.05);
+    border: 1px solid #e2e9f3;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 6px 22px #152b4b0a;
 }
 
-.stat-card small {
-    color: #687790;
-    font-size: 13px;
-}
+.stat small { color: #728097; }
+.stat h2 { margin-top: 7px; font-size: 22px; }
 
-.stat-card h2 {
-    font-size: 25px;
-    margin-top: 9px;
-    color: #14274a;
-}
+.heading { margin-bottom: 20px; }
+.heading h2 { font-size: 26px; margin-bottom: 5px; }
+.heading p { color: #718097; }
 
-.section-heading {
-    margin-bottom: 22px;
-}
+.card { margin-bottom: 25px; }
 
-.section-heading h2 {
-    font-size: 25px;
-    margin-bottom: 8px;
-}
-
-.section-heading p {
-    color: #6b7890;
-    line-height: 1.6;
-}
-
-.card {
-    margin-bottom: 25px;
-}
-
-.form-grid {
+.grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
 }
 
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.full { grid-column: 1 / -1; }
 
-.field.full {
-    grid-column: 1 / -1;
-}
-
-label {
-    font-size: 13px;
-    font-weight: 650;
-    color: #293953;
-}
+label { font-size: 13px; font-weight: bold; }
 
 input, select {
     width: 100%;
-    padding: 13px 14px;
-    border: 1px solid #d6deea;
+    padding: 13px;
+    border: 1px solid #d5deeb;
     border-radius: 8px;
-    font: inherit;
+    background: white;
     font-size: 14px;
-    background: #fff;
-    color: #17233d;
 }
 
 input:focus, select:focus {
-    outline: 2px solid #b6d4ff;
+    outline: 2px solid #c2d9ff;
     border-color: #3478f6;
 }
 
-.primary-btn {
-    background: #2868e8;
-    color: white;
+.primary, .secondary {
+    padding: 13px 18px;
+    border-radius: 8px;
     border: none;
-    border-radius: 9px;
-    padding: 14px 20px;
-    font-size: 14px;
-    font-weight: 650;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.primary-btn:hover {
-    background: #174fc0;
-}
+.primary { background: #2868e8; color: white; }
+.primary:hover { background: #174fc0; }
+.secondary { background: #eaf1ff; color: #2458b5; }
 
-.secondary-btn {
-    background: #edf3ff;
-    color: #2458b5;
-    border: 1px solid #d4e2ff;
-    border-radius: 9px;
-    padding: 12px 16px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.full-btn {
-    width: 100%;
-    margin-top: 20px;
-}
+.full-button { width: 100%; margin-top: 20px; }
 
 .notice {
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 8px;
     background: #eff6ff;
     color: #355781;
-    border: 1px solid #d8e8ff;
-    padding: 13px 15px;
-    border-radius: 9px;
-    font-size: 13px;
-    line-height: 1.6;
-    margin-top: 18px;
+    font-size: 12px;
 }
 
-.candidate-grid {
+.candidates {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
 
-.candidate {
-    border: 1px solid #e0e7f1;
-    border-radius: 14px;
-    padding: 23px;
-    background: white;
-    transition: transform .2s, box-shadow .2s;
-}
-
-.candidate:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px #1c315012;
-}
+.candidate { transition: transform .2s; }
+.candidate:hover { transform: translateY(-3px); }
 
 .avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
     display: grid;
     place-items: center;
     background: #e8f0ff;
-    color: #205ac5;
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 16px;
+    color: #2458b5;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.candidate h3 {
-    margin-bottom: 6px;
-    font-size: 19px;
-}
+.candidate h3 { font-size: 20px; }
+.role { color: #2868e8; font-size: 13px; font-weight: bold; }
+.candidate p { color: #718097; font-size: 13px; margin: 12px 0 18px; }
+.candidate button { width: 100%; }
 
-.candidate .role {
-    color: #2868e8;
-    font-size: 13px;
-    font-weight: 650;
-    margin-bottom: 12px;
-}
-
-.candidate p {
-    color: #687790;
-    font-size: 13px;
-    line-height: 1.7;
+.message {
+    background: #ecfdf3;
+    color: #166534;
+    border-radius: 8px;
+    padding: 13px;
     margin-bottom: 18px;
 }
 
-.candidate .primary-btn {
-    width: 100%;
-}
-
-.status {
-    padding: 12px 15px;
-    border-radius: 9px;
-    background: #ecfdf3;
-    color: #166534;
-    font-size: 14px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 footer {
     text-align: center;
-    color: #748097;
+    color: #758197;
+    padding: 25px;
     font-size: 12px;
-    padding: 25px 15px;
-    line-height: 1.8;
 }
 
-@media (max-width: 650px) {
-    header {
-        padding: 18px 5%;
-    }
-
-    .hero {
-        padding: 38px 5% 45px;
-    }
-
-    main {
-        padding: 0 14px 30px;
-    }
-
-    .stats {
-        gap: 8px;
-    }
-
-    .stat-card {
-        padding: 14px 10px;
-    }
-
-    .stat-card h2 {
-        font-size: 20px;
-    }
-
-    .stat-card small {
-        font-size: 11px;
-    }
-
-    .form-grid, .candidate-grid {
-        grid-template-columns: 1fr;
-    }
-
-    nav button {
-        padding: 9px 12px;
-    }
+@media(max-width: 650px) {
+    header { padding: 18px 5%; }
+    .hero { padding: 38px 5% 48px; }
+    main { padding: 0 14px 30px; }
+    .stats { gap: 8px; }
+    .stat { padding: 12px 8px; }
+    .stat h2 { font-size: 16px; }
+    .stat small { font-size: 10px; }
+    .grid, .candidates { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 
 <body>
-
 <header>
     <div>
         <div class="logo">Vote<span>Secure</span></div>
-        <p>Online Voting System · DevOps Project</p>
+        <div class="subtitle">ONLINE VOTING SYSTEM · DEVOPS PROJECT</div>
     </div>
     <nav>
-        <button class="active" id="registerNav"
-            onclick="showPage('register')">Register</button>
-        <button id="voteNav"
+        <button id="registerTab" class="active"
+            onclick="showPage('register')">Registration</button>
+        <button id="voteTab"
             onclick="showPage('vote')">Cast Vote</button>
     </nav>
 </header>
 
 <section class="hero">
-    <span class="tag">● DEMO ELECTION PORTAL</span>
+    <div class="badge">● DEMONSTRATION PORTAL</div>
     <h1>Your Voice. Your Choice. Your Vote.</h1>
     <p>
-        Welcome to the Online Voting System. Register your details,
-        review the candidates, and experience a simple digital voting
-        process through a clean and accessible interface.
+        Welcome to a simple digital voting experience. Register your
+        details, explore the candidates and make your selection through
+        our modern online voting interface.
     </p>
 </section>
 
 <main>
     <section class="stats">
-        <div class="stat-card">
-            <small>Election Status</small>
+        <div class="stat">
+            <small>Portal Status</small>
             <h2>Demo Mode</h2>
         </div>
-        <div class="stat-card">
-            <small>Featured Candidates</small>
+        <div class="stat">
+            <small>Available Candidates</small>
             <h2>02</h2>
         </div>
-        <div class="stat-card">
-            <small>Your Voting Status</small>
-            <h2 id="votingStatus">Not voted</h2>
+        <div class="stat">
+            <small>Your Status</small>
+            <h2 id="status">Not voted</h2>
         </div>
     </section>
 
     <section id="registerPage">
-        <div class="section-heading">
+        <div class="heading">
             <h2>Voter Registration</h2>
-            <p>Enter your details to continue to the demo voting page.</p>
+            <p>Complete the form below to continue to candidate selection.</p>
         </div>
 
         <div class="card">
             <form id="registrationForm">
-                <div class="form-grid">
+                <div class="grid">
                     <div class="field">
-                        <label for="fullName">Full Name</label>
-                        <input id="fullName" type="text"
-                            placeholder="Enter your full name"
-                            autocomplete="name" required>
+                        <label for="name">Full Name</label>
+                        <input id="name" type="text"
+                            placeholder="Enter your full name" required>
                     </div>
 
                     <div class="field">
                         <label for="email">Email Address</label>
                         <input id="email" type="email"
-                            placeholder="you@example.com"
-                            autocomplete="email" required>
+                            placeholder="you@example.com" required>
                     </div>
 
                     <div class="field">
                         <label for="voterId">Demo Voter ID</label>
                         <input id="voterId" type="text"
-                            placeholder="Enter a demo ID" required>
+                            placeholder="Enter a demo voter ID" required>
                     </div>
 
                     <div class="field">
@@ -427,51 +288,49 @@ footer {
                     <div class="field">
                         <label for="password">Create Demo Password</label>
                         <input id="password" type="password"
-                            placeholder="At least 6 characters"
-                            minlength="6" autocomplete="new-password" required>
+                            minlength="6" placeholder="Minimum 6 characters"
+                            required>
                     </div>
 
                     <div class="field">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input id="confirmPassword" type="password"
-                            placeholder="Re-enter your password"
-                            minlength="6" autocomplete="new-password" required>
+                        <label for="confirm">Confirm Password</label>
+                        <input id="confirm" type="password"
+                            minlength="6" placeholder="Re-enter password"
+                            required>
                     </div>
                 </div>
 
                 <div class="notice">
-                    This is a college project demonstration. Do not enter
-                    real passwords or sensitive voter information.
-                    Registration details are not saved to a database.
+                    College project demonstration only. Do not enter real
+                    passwords or sensitive personal information. This demo
+                    does not store registrations in a database.
                 </div>
 
-                <button class="primary-btn full-btn" type="submit">
-                    Complete Demo Registration →
+                <button class="primary full-button" type="submit">
+                    Complete Registration →
                 </button>
             </form>
         </div>
     </section>
 
     <section id="votePage" class="hidden">
-        <div class="section-heading">
-            <h2>Candidate Selection</h2>
-            <p id="welcomeText">
-                Review the candidate profiles and select one for your demo vote.
-            </p>
+        <div class="heading">
+            <h2>Meet the Candidates</h2>
+            <p id="welcome">Review both candidate profiles before selecting.</p>
         </div>
 
-        <div id="voteMessage" class="status hidden"></div>
+        <div id="message" class="message hidden"></div>
 
-        <div class="candidate-grid">
+        <div class="candidates">
             <article class="candidate">
                 <div class="avatar">A</div>
                 <h3>Candidate A</h3>
                 <div class="role">Development Representative</div>
                 <p>
-                    Focus areas: student engagement, technology initiatives,
-                    transparent communication, and campus activities.
+                    Focuses on student engagement, technology initiatives,
+                    transparent communication and campus activities.
                 </p>
-                <button class="primary-btn" onclick="castVote('Candidate A')">
+                <button class="primary" onclick="castVote('Candidate A')">
                     Vote for Candidate A
                 </button>
             </article>
@@ -481,82 +340,73 @@ footer {
                 <h3>Candidate B</h3>
                 <div class="role">Innovation Representative</div>
                 <p>
-                    Focus areas: innovation programs, student collaboration,
-                    learning opportunities, and community participation.
+                    Focuses on innovation programs, student collaboration,
+                    learning opportunities and community participation.
                 </p>
-                <button class="primary-btn" onclick="castVote('Candidate B')">
+                <button class="primary" onclick="castVote('Candidate B')">
                     Vote for Candidate B
                 </button>
             </article>
         </div>
 
         <div class="card" style="margin-top:22px">
-            <h3>Demo Voting Summary</h3>
-            <p id="resultText" style="color:#687790;margin-top:10px;line-height:1.7">
-                No demo vote has been recorded in this session.
+            <h3>Voting Summary</h3>
+            <p id="summary" style="color:#718097;margin-top:8px">
+                No demo vote recorded in this session.
             </p>
-            <button class="secondary-btn" style="margin-top:16px"
+            <button class="secondary" style="margin-top:15px"
                 onclick="showPage('register')">Back to Registration</button>
         </div>
     </section>
 </main>
 
 <footer>
-    Online Voting System · Built as a DevOps learning project<br>
-    Demonstration only — not intended for real elections.
+    VoteSecure · Online Voting System · DevOps Learning Project<br>
+    Demo application only — not designed for real elections.
 </footer>
 
 <script>
 let registered = false;
-let hasVoted = false;
-let selectedCandidate = "";
+let voted = false;
 let voterName = "";
 
 function showPage(page) {
     if (page === "vote" && !registered) {
-        alert("Please complete the demo registration first.");
+        alert("Please complete registration first.");
         page = "register";
     }
 
     document.getElementById("registerPage").classList.toggle(
-        "hidden", page !== "register"
-    );
+        "hidden", page !== "register");
     document.getElementById("votePage").classList.toggle(
-        "hidden", page !== "vote"
-    );
-
-    document.getElementById("registerNav").classList.toggle(
-        "active", page === "register"
-    );
-    document.getElementById("voteNav").classList.toggle(
-        "active", page === "vote"
-    );
+        "hidden", page !== "vote");
+    document.getElementById("registerTab").classList.toggle(
+        "active", page === "register");
+    document.getElementById("voteTab").classList.toggle(
+        "active", page === "vote");
 }
 
 document.getElementById("registrationForm").addEventListener(
     "submit", function(event) {
         event.preventDefault();
 
-        const password = document.getElementById("password").value;
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match. Please try again.");
+        if (document.getElementById("password").value !==
+            document.getElementById("confirm").value) {
+            alert("Passwords do not match.");
             return;
         }
 
-        voterName = document.getElementById("fullName").value.trim();
+        voterName = document.getElementById("name").value.trim();
 
         if (!voterName) {
-            alert("Please enter your full name.");
+            alert("Please enter your name.");
             return;
         }
 
         registered = true;
-        document.getElementById("welcomeText").textContent =
+        document.getElementById("welcome").textContent =
             "Welcome, " + voterName +
-            ". Review the candidates and cast your demo vote.";
+            ". Review the candidate profiles and cast your demo vote.";
 
         showPage("vote");
     }
@@ -569,33 +419,26 @@ function castVote(candidate) {
         return;
     }
 
-    if (hasVoted) {
-        alert("You have already cast your demo vote in this session.");
+    if (voted) {
+        alert("You have already voted in this demo session.");
         return;
     }
 
-    hasVoted = true;
-    selectedCandidate = candidate;
-
-    document.getElementById("votingStatus").textContent = "Voted";
-    document.getElementById("voteMessage").classList.remove("hidden");
-    document.getElementById("voteMessage").textContent =
+    voted = true;
+    document.getElementById("status").textContent = "Voted";
+    document.getElementById("message").classList.remove("hidden");
+    document.getElementById("message").textContent =
         "Thank you, " + voterName +
         "! Your demo selection is " + candidate + ".";
 
-    document.getElementById("resultText").textContent =
-        "Demo selection: " + selectedCandidate +
-        ". This result exists only in the current browser session.";
+    document.getElementById("summary").textContent =
+        "Selected: " + candidate +
+        ". This selection is held only in browser memory.";
 
-    document.querySelectorAll(".candidate .primary-btn").forEach(
-        function(button) {
-            button.disabled = true;
-            button.style.opacity = "0.6";
-            button.style.cursor = "not-allowed";
-        }
+    document.querySelectorAll(".candidate button").forEach(
+        function(button) { button.disabled = true; }
     );
 }
 </script>
-
 </body>
 </html>
